@@ -45,4 +45,4 @@ Version 3 date 3.24
     1.在cal_etacut.h  &  cal_etacut.cpp中增加了新的函数cal_etacut_with_ouput,用于输出每一个sample结果的etacut，输出内容储存在目录的eta cut result of each sample.txt 下。
     2.新增output.h  &  output.cpp，用于输出每个sample处于eta cut范围内粒子的OSCAR1997文件，输出内容储存在目录的iSS result after cut.txt下。
     3.解决了accpet error固定为0.01的bug。
-    4.上传到git中，项目地址为https://github.com/Liuqi19990113/iSS_calcut。
+    4.上传到git中，项目地址为https://github.com/Liuqi19990113/iSS_calcut.
