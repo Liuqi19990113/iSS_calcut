@@ -1,0 +1,8 @@
+qgp_option = 1   // 0:input from keyboard 1:input from urqmd result19
+eta_or_y_option = 0   //0:eta_cut 1:y_cut
+y_left = -8   //y_left of iss
+y_right = 8   //y_right of iss
+eta_left = -15
+eta_right = 15
+lattice_step = 0.005   //lattice step
+accpet_error = 0.05   //accpet_error of energy and pz
