@@ -44,7 +44,7 @@ int main()
     {
     sample_by_sample_eta_cal(oscar_path,para.eta_left,para.eta_right,para.y_step,para.qgp_energy,para.qgp_pz,para.accept_error);
     output_function("./eta cut result of each sample.txt",oscar_path,"./iSS result after cut.txt");
-    //all_sample_cal(oscar_path,para.eta_left,para.eta_right,para.y_step,para.qgp_energy,para.qgp_pz,para.accept_error);
+    all_sample_eta_cal(oscar_path,para.eta_left,para.eta_right,para.y_step,para.qgp_energy,para.qgp_pz,para.accept_error);
     }
     
 }    
