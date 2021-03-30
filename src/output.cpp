@@ -9,6 +9,11 @@ void output_function(string ycut_path, string oscar_path, string output_path)
     oscar_file.open(oscar_path,ios::in);
     ofstream output_file;
     output_file.open(output_path,ios::out);
+    output_file.setf(ios::right);
+    output_file.fill(' ');
+    output_file.setf(ios::showpoint);
+    output_file.flags(ios::fixed);
+    output_file.flags(ios::scientific);
     string stem_ycut_line, stem_oscar_line;
     output_file << "OSC1997A" <<endl;
     output_file << "final_id_p_x" << endl;
@@ -62,7 +67,7 @@ void output_function(string ycut_path, string oscar_path, string output_path)
                     this_particle.particle_information(stem_oscar_line);
                     if (this_particle.eta >= cut_left && this_particle.eta <= cut_right)particle_with_cut.push_back(stem_oscar_line);            
                 }
-                output_file << right << setw(10) << sample_with_cut_order << right << setw(12)<< particle_with_cut.size() << right << setw(10) << "0" << right << setw(10) << "0" << endl;
+                output_file  << setw(10) << sample_with_cut_order << "  " << setw(10)<< particle_with_cut.size() << "  " << setw(8) << "0.0" << "  " << setw(8) << "0.0" << endl;
                 for(int i = 0;i<= particle_with_cut.size()-1;i++)
                 {
                     stringstream output_line; 
@@ -70,17 +75,22 @@ void output_function(string ycut_path, string oscar_path, string output_path)
                     string final_out_line;
                     output_line >> final_out_line;
                     final_out_line.clear();
-                    output_file << right << setw(10) << i+1;
+                    output_file << setw(10) << i+1 << "  ";
                     output_line >> final_out_line;
-                    output_file << right << setw(12) << final_out_line;
-                    
+                    output_file << setw(10) << final_out_line << "  ";
+                    vector<double>par_info;
+                    par_info.clear();
                     for(int j = 2;j <= 10; j++)
                     {
-                     final_out_line.clear();
+                        final_out_line.clear();
                         output_line >> final_out_line;
-                        if(j != 10)output_file << right << setw(26) << final_out_line ;
-                        else output_file << right << setw(26) << final_out_line << endl;
+                        char info[500];
+                        strcpy(info,final_out_line.c_str());
+                        par_info.push_back(atof(info));
                     }
+                    char line[500];
+                    sprintf(line, "%24.16e  %24.16e  %24.16e  %24.16e  %24.16e  %24.16e  %24.16e  %24.16e  %24.16e",par_info[0],par_info[1],par_info[2],par_info[3],par_info[4],par_info[5],par_info[6],par_info[7],par_info[8]);
+                    output_file << line << endl;
                 }
                 particle_with_cut.clear();
             }
