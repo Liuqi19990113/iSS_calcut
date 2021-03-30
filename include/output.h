@@ -2,6 +2,7 @@
 #define OUTPUT_H
 #include<iostream>
 #include<string>
+#include<string.h>
 #include<sstream>
 #include<fstream>
 #include<cmath>
