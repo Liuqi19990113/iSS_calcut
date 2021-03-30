@@ -35,7 +35,7 @@ void parameter::get_para(string parameter_path)
     }
 
 
-    if(eta_or_y_option == 0)
+    if(eta_or_y_option == 0 | eta_or_y_option ==3)
     {
         for (int i = 1; i <= 4; i++)
         {
