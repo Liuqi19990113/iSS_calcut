@@ -52,3 +52,9 @@ Version 3 date 3.24
 Version 4 date 3.30
 #更改与新增
     1.更改了output.cpp的输出格式来适配osc2u程序，相应的在output.h中新增了头文件<string.h>
+    
+
+
+Version 5 date 3.30
+#更改与新增
+    1.新增了cal_particle_by_particle.h  &  cal_pbyp.cpp来particle by particle的计算eta_cut，其option在参数卡中设置
