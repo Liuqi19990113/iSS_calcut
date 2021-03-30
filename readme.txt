@@ -46,3 +46,9 @@ Version 3 date 3.24
     2.新增output.h  &  output.cpp，用于输出每个sample处于eta cut范围内粒子的OSCAR1997文件，输出内容储存在目录的iSS result after cut.txt下。
     3.解决了accpet error固定为0.01的bug。
     4.上传到了github中，项目地址为https://github.com/Liuqi19990113/iSS_calcut
+    
+    
+    
+Version 4 date 3.30
+#更改与新增
+    1.更改了output.cpp的输出格式来适配osc2u程序，相应的在output.h中新增了头文件<string.h>
