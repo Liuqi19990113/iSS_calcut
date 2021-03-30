@@ -5,12 +5,14 @@
 #include<sstream>
 #include<cmath>
 #include<cstdlib>
+#include<unistd.h>
 #include"../include/line.h"
 #include"../include/cal_ycut.h"
 #include"../include/urqmd_read.h"
 #include"../include/para_read.h"
 #include"../include/cal_etacut.h"
 #include"../include/output.h"
+#include"../include/cal_particle_by_particle.h"
 using namespace std;
 
 int main()
@@ -37,14 +39,30 @@ int main()
 
     if (para.eta_or_y_option == 1)
     {
+    cout << "********************y cut lattice method without output file*************************"<<endl; 
     sample_by_sample_cal(oscar_path,para.y_left,para.y_right,para.y_step,para.qgp_energy,para.qgp_pz,para.accept_error);  //cal ycut result by result  
-    //all_sample_cal(oscar_path,para.y_left,para.y_right,para.y_step,para.qgp_energy,para.qgp_pz,para.accept_error);  // cal ycut of all results
+    all_sample_cal(oscar_path,para.y_left,para.y_right,para.y_step,para.qgp_energy,para.qgp_pz,para.accept_error);  // cal ycut of all results
     }   
     if (para.eta_or_y_option == 0)
     {
-    sample_by_sample_eta_cal(oscar_path,para.eta_left,para.eta_right,para.y_step,para.qgp_energy,para.qgp_pz,para.accept_error);
-    output_function("./eta cut result of each sample.txt",oscar_path,"./iSS result after cut.txt");
-    all_sample_eta_cal(oscar_path,para.eta_left,para.eta_right,para.y_step,para.qgp_energy,para.qgp_pz,para.accept_error);
+    if(access("./results_of_cal",0) != -1)
+    {
+        system("rm -rf  ./results_of_cal");
+        system("mkdir ./results_of_cal");
+        system("mkdir ./results_of_cal/ep_spectrum");
     }
-    
+    else 
+    {
+        system("mkdir ./results_of_cal");
+        system("mkdir ./results_of_cal/ep_spectrum");
+    }
+    cout << "********************eta cut lattice method with output file*************************"<<endl;
+    sample_by_sample_eta_cal(oscar_path,para.eta_left,para.eta_right,para.y_step,para.qgp_energy,para.qgp_pz,para.accept_error);
+    output_function("./results_of_cal/eta cut result of each sample.txt",oscar_path,"./results_of_cal/iSS result after cut.txt");
+    //all_sample_eta_cal(oscar_path,para.eta_left,para.eta_right,para.y_step,para.qgp_energy,para.qgp_pz,para.accept_error);
+    }
+    if  (para.eta_or_y_option == 3)
+    {cout << "*******************eta cut particle method without output file************************"<<endl;
+    sample_eta_particle_by_particle(para.qgp_energy,para.qgp_pz,para.accept_error,oscar_path);
+    }
 }    
