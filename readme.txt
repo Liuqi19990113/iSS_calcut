@@ -58,3 +58,11 @@ Version 4 date 3.30
 Version 5 date 3.30
 #更改与新增
     1.新增了cal_particle_by_particle.h  &  cal_pbyp.cpp来particle by particle的计算eta_cut，其option在参数卡中设置
+    
+    
+
+Version 6 date 4.5
+#更改与新增
+    1.在eta_cut的lattice计算方法中剔除了超出参数卡中eta的粒子，并在控制台中输出剔除的粒子数。
+    2.改变了输出文件的结构，现在输出文件只有两个，一个是每个sample结果的eta_cut,另一个是最终的OSCAR文件，都储存在results_of_cal文件夹中。
+    3.为eta_cut的particle by particle 方法添加了输出
