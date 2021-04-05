@@ -106,6 +106,6 @@ void output_function(string ycut_path, string oscar_path, string output_path)
 
     else
     {
-        cout << "Cant open the file" << endl;
+        cout << "Cant open the eta cut result file and raw OSCAR file" << endl;
     }
 }
