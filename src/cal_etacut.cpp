@@ -99,7 +99,7 @@ int cal_etacut_with_output(double qgp_energy,double qgp_pz,double energy_list[],
 int sample_by_sample_eta_cal(string oscar_path,double eta_left,double eta_right,double y_step,double qgp_energy,double qgp_pz,double accept_error)
 {
     ofstream eta_cut_output_file;
-    eta_cut_output_file.open("./eta cut result of each sample.txt",ios::out);
+    eta_cut_output_file.open("./results_of_cal/eta cut result of each sample.txt",ios::out);
     int lattice_number = (eta_right-eta_left)/y_step;
     ifstream oscar_file;
     oscar_file.open(oscar_path);
@@ -127,21 +127,29 @@ int sample_by_sample_eta_cal(string oscar_path,double eta_left,double eta_right,
             this_title.title_information(stem_line);
             cout << this_title.sample_order << " th" << " sample result" << endl;
             eta_cut_output_file << this_title.sample_order << " th" << " sample result" << endl;
+            int skip_particle_number = 0;
             for(int k = 1;k<= this_title.particle_number;k++)
             {
                 getline(oscar_file,stem_line);
                 particle_line thisline;
                 thisline.particle_information(stem_line);
+                if(thisline.eta <= eta_left or thisline.eta >= eta_right)
+                {
+                    skip_particle_number += 1;
+                    continue;
+
+                }
                 int this_eta_order = (thisline.eta - eta_left)/y_step;
                 energy_list[this_eta_order] += thisline.energy;
                 pz_list[this_eta_order] += thisline.pz;
             }
+            cout << "Warning: skip " << skip_particle_number << " paricles outof eta range" << endl;
         cal_etacut_with_output(qgp_energy,qgp_pz,energy_list,pz_list,eta_left,y_step,lattice_number,eta_cut_output_file,accept_error);
         }
     oscar_file.close();
     cout << "closed OSCAR.DAT" << endl;
     eta_cut_output_file.close();
-    cout << "usccessfully output the etacut_output file" << endl;
+    cout << "sccessfully output the etacut_output file" << endl;
     }
     else
     {

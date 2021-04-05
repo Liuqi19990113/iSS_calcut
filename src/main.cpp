@@ -49,12 +49,12 @@ int main()
     {
         system("rm -rf  ./results_of_cal");
         system("mkdir ./results_of_cal");
-        system("mkdir ./results_of_cal/ep_spectrum");
+        //system("mkdir ./results_of_cal/ep_spectrum");
     }
     else 
     {
         system("mkdir ./results_of_cal");
-        system("mkdir ./results_of_cal/ep_spectrum");
+        //system("mkdir ./results_of_cal/ep_spectrum");
     }
     cout << "********************eta cut lattice method with output file*************************"<<endl;
     sample_by_sample_eta_cal(oscar_path,para.eta_left,para.eta_right,para.y_step,para.qgp_energy,para.qgp_pz,para.accept_error);
@@ -63,6 +63,18 @@ int main()
     }
     if  (para.eta_or_y_option == 3)
     {cout << "*******************eta cut particle method without output file************************"<<endl;
+    if(access("./results_of_cal",0) != -1)
+    {
+        system("rm -rf  ./results_of_cal");
+        system("mkdir ./results_of_cal");
+        //system("mkdir ./results_of_cal/ep_spectrum");
+    }
+    else 
+    {
+        system("mkdir ./results_of_cal");
+        //system("mkdir ./results_of_cal/ep_spectrum");
+    }
     sample_eta_particle_by_particle(para.qgp_energy,para.qgp_pz,para.accept_error,oscar_path);
+    output_function("./results_of_cal/eta cut result of each sample.txt",oscar_path,"./results_of_cal/iSS result after cut.txt");
     }
 }    

@@ -2,7 +2,7 @@
 #include"../include/urqmd_read.h"
 #include"../include/cal_particle_by_particle.h"
 
-int cal_eta_particle_by_particle(double qgp_energy,double qgp_pz, double accept_error,map<double,double>eta_energy_map,map<double,double>eta_pz_map,vector<double>eta_list)
+int cal_eta_particle_by_particle(double qgp_energy,double qgp_pz, double accept_error,map<double,double>eta_energy_map,map<double,double>eta_pz_map,vector<double>eta_list,ofstream &eta_cut_output_file)
 {
     for(int left_particle_order = 0;left_particle_order < eta_list.size()-1;left_particle_order++)
         {   
@@ -13,7 +13,10 @@ int cal_eta_particle_by_particle(double qgp_energy,double qgp_pz, double accept_
             double delta_pz = 100;
             energy_sum = eta_energy_map[eta_list[left_particle_order]];
             pz_sum = eta_pz_map[eta_list[left_particle_order]];
-            if(left_particle_order == (eta_list.size() - 2)) cout << "Not found etacut of this one" << endl;
+            if(left_particle_order == (eta_list.size() - 2)) 
+            {cout << "Not found etacut of this one" << endl;
+             eta_cut_output_file << "Not found etacut of this one" << endl;
+            }
             if (energy_sum == 0){continue;}   //skip zero energy lattice
             for(int right_particle_order = left_particle_order+1;right_particle_order < eta_list.size();right_particle_order++)
                 {energy_sum += eta_energy_map[eta_list[right_particle_order]];
@@ -27,6 +30,9 @@ int cal_eta_particle_by_particle(double qgp_energy,double qgp_pz, double accept_
                     count = 1;
                     cout << "successfully get the cut " << " eta_lb " << this_eta_cut_lb
                     << "  eta_rb " << this_eta_cut_rb << endl; 
+                    eta_cut_output_file << "successfully get the cut " << " eta_lb " << this_eta_cut_lb
+                    << "  eta_rb " << this_eta_cut_rb << endl;
+
                     break;
                 }
                 else
@@ -44,9 +50,12 @@ int cal_eta_particle_by_particle(double qgp_energy,double qgp_pz, double accept_
 
 int sample_eta_particle_by_particle(double qgp_energy,double qgp_pz, double accept_error, string oscar_path)
 {
+    ofstream eta_cut_output_file;
+    eta_cut_output_file.open("./results_of_cal/eta cut result of each sample.txt",ios::out);
     ifstream oscar_file;
     oscar_file.open(oscar_path);
     if(oscar_file)
+
     {
         cout << "successfully open the OSCAR.DAT" << endl;
         string stem_line;
@@ -67,6 +76,7 @@ int sample_eta_particle_by_particle(double qgp_energy,double qgp_pz, double acce
             title_line this_title;
             this_title.title_information(stem_line);
             cout << this_title.sample_order << " th" << " sample result" << endl;
+            eta_cut_output_file << this_title.sample_order << " th" << " sample result" << endl;
             cout << "There are "<<this_title.particle_number <<" particles in this result." << endl;
             map<double,double>eta_energy_map;
             map<double,double>eta_pz_map;
@@ -82,12 +92,18 @@ int sample_eta_particle_by_particle(double qgp_energy,double qgp_pz, double acce
             }
             sort(eta_list.begin(),eta_list.end());
             cout << "the map size is " << eta_pz_map.size() << endl;
-            cal_eta_particle_by_particle(qgp_energy,qgp_pz,accept_error,eta_energy_map,eta_pz_map,eta_list);
+            cal_eta_particle_by_particle(qgp_energy,qgp_pz,accept_error,eta_energy_map,eta_pz_map,eta_list,eta_cut_output_file);
         }
         oscar_file.close();
+        cout << "closed OSCAR.DAT" << endl;
+        eta_cut_output_file.close();
+        cout << "sccessfully output the etacut_output file" << endl;
 
     }
-
+    else
+    {
+        cout << "failed to open OSCAR.DAT" << endl;
+    }
 
 
 

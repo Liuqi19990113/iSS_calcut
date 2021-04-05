@@ -20,7 +20,7 @@ void output_function(string ycut_path, string oscar_path, string output_path)
     output_file << " 3DHydro       1.1  (197,    79)+(197,    79)  eqsp  0.1000E+03         1" <<endl;
     if(ycut_file && oscar_file)
     {
-        cout << "successfully open the file" << endl;
+        cout << "successfully open the eta cut result file and raw OSCAR file" << endl;
         for(int i = 1; i <= 3; i++)
         {
             getline(oscar_file,stem_oscar_line);
