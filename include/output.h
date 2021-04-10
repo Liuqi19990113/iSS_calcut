@@ -10,7 +10,7 @@
 #include<iomanip>
 using namespace std;
 
-void output_function(string ycut_path, string oscar_path, string output_path);
+void output_function(string ycut_path, string oscar_path, string output_path,int debug_in);
 
 
 

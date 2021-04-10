@@ -6,7 +6,7 @@
 #include<fstream>
 using namespace std;
 
-double *urqmd_qgp_function(string urqmd_path);
+double *urqmd_qgp_function(string urqmd_path, int debug_in);
 
 
 #endif

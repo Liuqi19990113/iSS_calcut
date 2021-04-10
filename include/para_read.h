@@ -20,6 +20,9 @@ class parameter
         double eta_right;
         double y_step;
         double accept_error;
+        int debug_option;
+        string urqmd_path;
+        string oscar_path;
         void get_para(string parameter_path);
 };
 
