@@ -66,3 +66,14 @@ Version 6 date 4.5
     1.在eta_cut的lattice计算方法中剔除了超出参数卡中eta的粒子，并在控制台中输出剔除的粒子数。
     2.改变了输出文件的结构，现在输出文件只有两个，一个是每个sample结果的eta_cut,另一个是最终的OSCAR文件，都储存在results_of_cal文件夹中。
     3.为eta_cut的particle by particle 方法添加了输出
+    
+
+
+Version 7 date 4.10
+#更改与新增
+    1.现在可以直接通过main(argc,argv)读取能动量了，第一个参数是能量，第二个是动量
+    2.参数卡中加入了debug选项，debug = 0 时只会输出计算方法(lattice or particle)和是否找到cut，1是0否。 debug = 1时输出所有信息。
+    3.现在OSCAR.DAT和urqmd_result19文件的地址要从参数卡中读取
+    4.文件名中的空格现在用下划线替代了。
+    5.将参数卡改名为"calcut_parameter.txt"
+    6.现在需要用户自己在当前目录下创建"results_of_cal"文件夹用于储存结果
