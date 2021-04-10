@@ -1,0 +1,11 @@
+debug_option = 1  				//0:turn off debug  1:open debug
+qgp_option = 1   				// 0:input from keyboard 1:input from urqmd result19
+eta_or_y_option = 0  				//0:eta_cut 1:y_cut 3:eta_cut(particle method without outputfile)
+y_left = -20   						//y_left of iss
+y_right = 20          					//y_right of iss
+eta_left = -20
+eta_right = 20
+lattice_step = 0.0005                             //lattice step
+accpet_error = 0.2                                //accpet_error of energy and pz
+urqmd_input_path : ../urqmd/urqmd_result19              //urqmd input path 
+OSCAR_input_path : ../iSS/OSCAR.DAT                     //OSCAR.DAT input path
