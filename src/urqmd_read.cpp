@@ -1,14 +1,15 @@
 #include"../include/urqmd_read.h"
+#include"../include/para_read.h"
 using namespace std;
 
-double *urqmd_qgp_function(string urqmd_path)
+double *urqmd_qgp_function(string urqmd_path, int debug_in)
 {
     double *array = new double[2];
     ifstream urqmd_file;
     urqmd_file.open(urqmd_path,ios::in); //open urqmd_result19
     if (urqmd_file)
     {
-        cout << "successfully open the file" << endl;
+        if(debug_in == 1)cout << "successfully open the urqmd_result19 file" << endl;
         string line;
         stringstream this_line;
         //clear the head text
@@ -39,14 +40,14 @@ double *urqmd_qgp_function(string urqmd_path)
             } 
         }
         urqmd_file.close();
-        cout << "successfully closed urqmd_result19 file" << endl;
+        if(debug_in == 1)cout << "successfully closed urqmd_result19 file" << endl;
     array[0] = qgp_energy; array[1] = qgp_pz;
-    cout << "the energy of qgp is " << qgp_energy << " Gev" << endl;
-    cout << "the pz of qgp is " << qgp_pz << " Gev" << endl;
+    if(debug_in == 1)cout << "the energy of qgp is " << qgp_energy << " Gev" << endl;
+    if(debug_in == 1)cout << "the pz of qgp is " << qgp_pz << " Gev" << endl;
     }
     else
     {
-        cout << "failed to open the urqmd file";
+        cout << "failed to open the urqmd_result19 file";
     }
     return array;
 }

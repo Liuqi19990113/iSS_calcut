@@ -1,7 +1,7 @@
 #include"../include/output.h"
 #include"../include/line.h"
 
-void output_function(string ycut_path, string oscar_path, string output_path)
+void output_function(string ycut_path, string oscar_path, string output_path, int debug_in)
 {
     ifstream ycut_file;
     ycut_file.open(ycut_path,ios::in);
@@ -20,7 +20,7 @@ void output_function(string ycut_path, string oscar_path, string output_path)
     output_file << " 3DHydro       1.1  (197,    79)+(197,    79)  eqsp  0.1000E+03         1" <<endl;
     if(ycut_file && oscar_file)
     {
-        cout << "successfully open the eta cut result file and raw OSCAR file" << endl;
+        if(debug_in == 1)cout << "successfully open the eta cut result file and raw OSCAR file" << endl;
         for(int i = 1; i <= 3; i++)
         {
             getline(oscar_file,stem_oscar_line);
@@ -99,8 +99,8 @@ void output_function(string ycut_path, string oscar_path, string output_path)
         ycut_file.close();
         oscar_file.close();
         output_file.close();
-        cout << "finished to combine output file" << endl;
-        cout << "there are " << sample_with_cut_order << " sample result in output file" << endl;
+        if(debug_in == 1){cout << "finished to combine output file" << endl;
+            cout << "there are " << sample_with_cut_order << " sample result in output file" << endl;}
 
     }
 

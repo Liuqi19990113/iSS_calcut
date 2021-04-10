@@ -44,7 +44,7 @@ int cal_etacut(double qgp_energy,double qgp_pz,double energy_list[],double pz_li
 
 
 
-int cal_etacut_with_output(double qgp_energy,double qgp_pz,double energy_list[],double pz_list[],double eta_left,double y_step,int lattice_number,ofstream &eta_cut_output_file,double accept_error)
+int cal_etacut_with_output(double qgp_energy,double qgp_pz,double energy_list[],double pz_list[],double eta_left,double y_step,int lattice_number,ofstream &eta_cut_output_file,double accept_error,int debug_in)
 {
     for(int left_lattice = 0;left_lattice < lattice_number-1;left_lattice++)
             {   
@@ -56,7 +56,8 @@ int cal_etacut_with_output(double qgp_energy,double qgp_pz,double energy_list[],
                 energy_sum = energy_list[left_lattice];
                 pz_sum = pz_list[left_lattice];
                 if(left_lattice == (lattice_number - 2)) 
-                {cout << "Not found etacut of this one" << endl;
+                {if(debug_in == 1) cout << "Not found etacut of this one" << endl;
+                if(debug_in == 0) cout << "0" << endl;
                 eta_cut_output_file << "Not found etacut of this one" << endl;
                 }
                 if (energy_sum == 0){continue;}   //skip zero energy lattice
@@ -70,8 +71,10 @@ int cal_etacut_with_output(double qgp_energy,double qgp_pz,double energy_list[],
                         this_eta_cut_lb = eta_left + y_step*left_lattice;
                         this_eta_cut_rb = eta_left + y_step*right_lattice; 
                         count = 1;
-                        cout << "successfully get the cut " << " eta_lb " << this_eta_cut_lb
-                        << "  eta_rb " << this_eta_cut_rb << endl; 
+                        if(debug_in == 1)
+                        {cout << "successfully get the cut " << " eta_lb " << this_eta_cut_lb
+                        << "  eta_rb " << this_eta_cut_rb << endl;} 
+                        if(debug_in == 0)cout << "1" << endl;
                         eta_cut_output_file << "successfully get the cut " << " eta_lb " << this_eta_cut_lb
                         << "  eta_rb " << this_eta_cut_rb << endl;
                         break;
@@ -96,16 +99,16 @@ int cal_etacut_with_output(double qgp_energy,double qgp_pz,double energy_list[],
 
 
 
-int sample_by_sample_eta_cal(string oscar_path,double eta_left,double eta_right,double y_step,double qgp_energy,double qgp_pz,double accept_error)
+int sample_by_sample_eta_cal(string oscar_path,double eta_left,double eta_right,double y_step,double qgp_energy,double qgp_pz,double accept_error,int debug_in)
 {
     ofstream eta_cut_output_file;
-    eta_cut_output_file.open("./results_of_cal/eta cut result of each sample.txt",ios::out);
+    eta_cut_output_file.open("./results_of_cal/etacut_result_of_each_sample.txt",ios::out);
     int lattice_number = (eta_right-eta_left)/y_step;
     ifstream oscar_file;
     oscar_file.open(oscar_path);
     if(oscar_file)
     {
-        cout << "successfully open the OSCAR.DAT" << endl;
+        if(debug_in == 1) cout << "successfully open the OSCAR.DAT" << endl;
         string stem_line;
         //remove the head text
         for(int i=1;i<=3;i++)
@@ -118,14 +121,14 @@ int sample_by_sample_eta_cal(string oscar_path,double eta_left,double eta_right,
             getline(oscar_file,stem_line);
             if(stem_line == "")
             {
-                cout << "finish sorted" <<endl;
+                if(debug_in == 1)cout << "finish sorted" <<endl;
                 break;
             }
             double energy_list[lattice_number]={0};
             double pz_list[lattice_number]={0};
             title_line this_title;
             this_title.title_information(stem_line);
-            cout << this_title.sample_order << " th" << " sample result" << endl;
+            if(debug_in == 1)cout << this_title.sample_order << " th" << " sample result" << endl;
             eta_cut_output_file << this_title.sample_order << " th" << " sample result" << endl;
             int skip_particle_number = 0;
             for(int k = 1;k<= this_title.particle_number;k++)
@@ -143,13 +146,13 @@ int sample_by_sample_eta_cal(string oscar_path,double eta_left,double eta_right,
                 energy_list[this_eta_order] += thisline.energy;
                 pz_list[this_eta_order] += thisline.pz;
             }
-            cout << "Warning: skip " << skip_particle_number << " paricles outof eta range" << endl;
-        cal_etacut_with_output(qgp_energy,qgp_pz,energy_list,pz_list,eta_left,y_step,lattice_number,eta_cut_output_file,accept_error);
+            if(debug_in == 1)cout << "Warning: skip " << skip_particle_number << " paricles outof eta range" << endl;
+        cal_etacut_with_output(qgp_energy,qgp_pz,energy_list,pz_list,eta_left,y_step,lattice_number,eta_cut_output_file,accept_error,debug_in);
         }
     oscar_file.close();
-    cout << "closed OSCAR.DAT" << endl;
+    if(debug_in == 1)cout << "closed OSCAR.DAT" << endl;
     eta_cut_output_file.close();
-    cout << "sccessfully output the etacut_output file" << endl;
+    if(debug_in == 1)cout << "sccessfully output the etacut_output file" << endl;
     }
     else
     {
