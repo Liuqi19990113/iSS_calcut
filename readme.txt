@@ -85,3 +85,4 @@ Version 8 date 4.11
     1.修复了一个bug,该bug会使得eta_cut的格点错开一格
     2.对参数卡的comments进行了一些修改
     3.现在debug = 0 时只会输出0和1
+    4.修改了输出的结果文件名
