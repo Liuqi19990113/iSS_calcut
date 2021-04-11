@@ -22,7 +22,7 @@ int cal_etacut(double qgp_energy,double qgp_pz,double energy_list[],double pz_li
                     if (delta_energy < accept_error && delta_pz < accept_error)
                     {
                         this_eta_cut_lb = eta_left + y_step*left_lattice;
-                        this_eta_cut_rb = eta_left + y_step*right_lattice; 
+                        this_eta_cut_rb = eta_left + y_step*(right_lattice+1); 
                         count = 1;
                         cout << "successfully get the cut " << " eta_lb " << this_eta_cut_lb
                         << "  eta_rb " << this_eta_cut_rb << endl; 
@@ -69,7 +69,7 @@ int cal_etacut_with_output(double qgp_energy,double qgp_pz,double energy_list[],
                     if (delta_energy < accept_error && delta_pz < accept_error)
                     {
                         this_eta_cut_lb = eta_left + y_step*left_lattice;
-                        this_eta_cut_rb = eta_left + y_step*right_lattice; 
+                        this_eta_cut_rb = eta_left + y_step*(right_lattice+1); 
                         count = 1;
                         if(debug_in == 1)
                         {cout << "successfully get the cut " << " eta_lb " << this_eta_cut_lb

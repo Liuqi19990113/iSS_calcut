@@ -45,20 +45,20 @@ int main(int argc, char **argv)
 
     if (para.eta_or_y_option == 1)
     {
-    cout << "***************y cut lattice method without output file***************"<<endl; 
+    if(para.debug_option == 1)cout << "***************y cut lattice method without output file***************"<<endl; 
     sample_by_sample_cal(oscar_path,para.y_left,para.y_right,para.y_step,para.qgp_energy,para.qgp_pz,para.accept_error);  //cal ycut result by result  
     //all_sample_cal(oscar_path,para.y_left,para.y_right,para.y_step,para.qgp_energy,para.qgp_pz,para.accept_error);  // cal ycut of all results
     }   
     if (para.eta_or_y_option == 0)
     {
-    cout << "***************eta cut lattice method with output file***************"<<endl;
+    if(para.debug_option == 1)cout << "***************eta cut lattice method with output file***************"<<endl;
     sample_by_sample_eta_cal(oscar_path,para.eta_left,para.eta_right,para.y_step,para.qgp_energy,para.qgp_pz,para.accept_error,para.debug_option);
-    output_function("./results_of_cal/etacut_result_of_each_sample.txt",oscar_path,"./results_of_cal/iSS_result_after_cut.txt",para.debug_option);
+    output_function("./results_of_cal/etacut_result_of_each_sample.txt",oscar_path,"./results_of_cal/iSS_result_after_cut(lattice_method).txt",para.debug_option);
     //all_sample_eta_cal(oscar_path,para.eta_left,para.eta_right,para.y_step,para.qgp_energy,para.qgp_pz,para.accept_error);
     }
     if  (para.eta_or_y_option == 3)
-    {cout << "**************eta cut particle method with output file***************"<<endl;
+    {if(para.debug_option == 1)cout << "**************eta cut particle method with output file***************"<<endl;
     sample_eta_particle_by_particle(para.qgp_energy,para.qgp_pz,para.accept_error,oscar_path,para.debug_option);
-    output_function("./results_of_cal/etacut_result_of_each_sample.txt",oscar_path,"./results_of_cal/iSS_result_after_cut_txt",para.debug_option);
+    output_function("./results_of_cal/etacut_result_of_each_sample.txt",oscar_path,"./results_of_cal/iSS_result_after_cut(particle_method).txt",para.debug_option);
     }
 }    
