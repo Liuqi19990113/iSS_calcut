@@ -77,3 +77,11 @@ Version 7 date 4.10
     4.文件名中的空格现在用下划线替代了。
     5.将参数卡改名为"calcut_parameter.txt"
     6.现在需要用户自己在当前目录下创建"results_of_cal"文件夹用于储存结果
+    
+    
+    
+Version 8 date 4.11
+#更改与新增
+    1.修复了一个bug,该bug会使得eta_cut的格点错开一格
+    2.对参数卡的comments进行了一些修改
+    3.现在debug = 0 时只会输出0和1
